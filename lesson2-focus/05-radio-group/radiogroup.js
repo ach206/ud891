@@ -18,6 +18,7 @@
     this.el = document.querySelector(id);
     this.buttons = slice(this.el.querySelectorAll('.radio'));
     this.focusedIdx = 0;
+
     this.focusedButton = this.buttons[this.focusedIdx];
 
     this.el.addEventListener('keydown', this.handleKeyDown.bind(this));
@@ -30,8 +31,12 @@
       case VK_LEFT: {
 
         e.preventDefault();
-
-        // This seems like a good place to do some stuff :)
+        if (this.focusedIdx === 0) {
+          this.focusedIdx = this.buttons.length - 1;
+        } else {
+          this.focusedIdx--;
+        }
+        //if active button is at the top then whenever up or left keycode entered it will activate the next button  starting at the bottom, and iterate by 1 going up
 
         break;
 
@@ -41,9 +46,12 @@
       case VK_RIGHT: {
 
         e.preventDefault();
-
-        // This seems like a good place to do some stuff :)
-
+        if (this.focusedIdx === this.buttons.length - 1) {
+          this.focusedIdx = 0;
+        } else {
+          this.focusedIdx++;
+        }
+        // if you get to the last one then start all over at index 0
         break;
       }
 
