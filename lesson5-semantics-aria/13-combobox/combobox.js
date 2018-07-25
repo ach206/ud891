@@ -169,7 +169,12 @@
             if (foundItems === 0) {
                 this.hide();
             } else {
-                // FIXME: ChromeVox reports the wrong list size and position
+                
+            for (let i=0; i < this.visibleItems.length; i++) {
+                this.visibleItems[i].setAttribute('aria-posinset', i + 1);
+                this.visibleItems[i].setAttribute('aria-setsize', this.visibleItems.length);
+            }
+            // FIXME: ChromeVox reports the wrong list size and position
             }
         },
 
@@ -236,6 +241,7 @@
                 active.classList.remove('active');
             newActive.classList.add('active');
 
+            this.textbox.setActiveDescendant(newActive);
             // FIXME: need to ensure focus stays on textbox, but report active list option
         }
     };
